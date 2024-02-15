@@ -1,0 +1,26 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+
+  <!--Inputs-->
+  @for(input of inputs; track input.formControlName) {
+    <div class="form__group">
+      <input formControlName="{{ input.formControlName }}"
+              type="{{ input.type }}"
+              placeholder="{{ input.placeholder }}"
+              class="form__input"
+              [ngStyle]="{'outline': inputIsInvalid(input.formControlName) ? '1px solid var(--color-red)' : '1px solid var(--color-dark-gray)'}"
+      />
+
+      <!--Mensaje en caso de error-->
+      @if(submitted && myForm.controls[input.formControlName].errors && myForm.controls[input.formControlName].touched) {
+        <div class="form__validate">
+          <p class="form__error">{{ input.msgError }}</p>
+          <img src="./assets/images/icon-error.svg" class="form__icon-error" />
+        </div>
+      }
+
+    </div>
+  }
+
+  <!--Boton de Enviar-->
+  <input type="submit" id="submit" value="Claim your free trial" class="form__btn" />
+</form>
